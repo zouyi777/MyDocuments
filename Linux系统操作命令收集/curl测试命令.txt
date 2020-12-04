@@ -1,0 +1,12 @@
+
+1、curl -d '{"instances":[[1.0, 2.0], [5.0,7.0]]}' -X POST http://120.24.147.111:8501/v1/models/linear_model:predict
+   winsow版：
+   window的command.exe不支持单引号，将其中的单引号改为双引号，并转义字符串中的任何双引号
+   curl -d "{\"instances\":[[1.0, 2.0], [5.0,7.0]]}" -X POST http://120.24.147.111:8501/v1/models/linear_model:predict
+2、上传图片
+   curl -F '@test2.jpg'  -X POST http://120.24.147.111:8501/v1/models/cnn_catdog_model:predict
+   curl -F "file=@test2.jpg"  -X POST http://120.24.147.111:8501/v1/models/cnn_catdog_model:predict
+   
+   curl -d '@test2.jpg'  -X POST http://120.24.147.111:8501/v1/models/cnn_catdog_model:predict
+   
+   curl -d "{\"instances\":@test2.npy}" -X POST http://120.24.147.111:8501/v1/models/linear_model:predict

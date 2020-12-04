@@ -1,0 +1,21 @@
+1、-webkit-line-clamp ：
+
+   是一个 不规范的属性（unsupported WebKit property），它没有出现在 CSS 规范草案中。
+
+   为了实现该效果，它需要组合其他外来的WebKit属性。常见结合属性：
+
+   display:-webkit-box;  必须结合的属性 ，将对象作为弹性伸缩盒子模型显示 。
+   -webkit-box-orient：  必须结合的属性 ，设置或检索伸缩盒对象的子元素的排列方式 。
+   text-overflow：       可以用来多行文本的情况下，用省略号“...”隐藏超出范围的文本 。
+
+2、apple-mobile-web-app-capable ：
+
+  是删除默认的苹果设备工具栏和菜单栏。content有两个值”yes”和”no”,当我们需要显示工具栏和菜单栏时，这个行  meta就不用加了，默认就是显示
+
+3、apple-mobile-web-app-status-bar-style：作用是控制苹果设备状态栏显示样式
+
+4、z-index ：属性设置元素的堆叠顺序。拥有更高堆叠顺序的元素总是会处于堆叠顺序较低的元素的前面。定位元素沿 z              轴的位置，z 轴定义为垂直延伸到显示区的轴。如果为正数，则离用户更近，为负数则表示离用户更远。
+
+5、backface-visibility：属性定义当元素不面向屏幕时是否可见。如果在旋转元素不希望看到其背面时，该属性很有用
+
+6、

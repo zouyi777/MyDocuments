@@ -1,0 +1,29 @@
+*{
+	margin:0px;
+	padding: 0px;
+}
+
+body{
+	width:2000px;
+}
+
+#main{
+	position:relative;
+}
+
+.box{
+	padding:15px 0 0 15px;
+	float:left;
+}
+
+.pic{
+	padding:10px;
+	border:1px solid #ccc;
+	border-radius:5px;
+	box-shadow:0 0 5px #ccc;
+}
+
+.pic img{
+	width:100px;
+	height:auto;
+}

@@ -1,0 +1,3 @@
+Shallow size:就是对象本身占用内存的大小
+
+Retained size是该对象自己的shallow size，加上从该对象能直接或间接访问到对象的shallow size之和

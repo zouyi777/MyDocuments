@@ -1,0 +1,35 @@
+// 删除SD卡上的单个文件方法
+    public boolean delete(String SDPATH,String fileName) {
+    
+     //SDPATH目录路径，fileName文件名
+    
+        File file = new File(SDPATH + "/" + fileName);  
+        if (file == null || !file.exists() || file.isDirectory()){  
+            return false;  
+        }
+        file.delete();
+        
+        return true;
+    }  
+
+    //删除整个文件夹方法
+    public boolean deleteSDFile(File file) {
+    
+     //file目标文件夹绝对路径
+    
+        if (file.exists()) { //指定文件是否存在  
+            if (file.isFile()) { //该路径名表示的文件是否是一个标准文件  
+                file.delete(); //删除该文件  
+            } else if (file.isDirectory()) { //该路径名表示的文件是否是一个目录（文件夹）  
+                File[] files = file.listFiles(); //列出当前文件夹下的所有文件  
+                for (File f : files) {  
+                 deleteSDFile(f); //递归删除  
+                    //Log.d("fileName", f.getName()); //打印文件名  
+                }  
+            }  
+            file.delete(); //删除文件夹（song,art,lyric）  
+        }
+return true;   
+    }
+
+自己再做个线程控制一下就行了

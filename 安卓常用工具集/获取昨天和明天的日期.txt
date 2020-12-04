@@ -1,0 +1,9 @@
+
+	public Date getTorrowDate(){
+		Date date=new Date();//取时间
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(date);
+		calendar.add(calendar.DATE,-1);//把日期往前减少一天，若想把日期向后推一天则将负数改为正数
+		date=calendar.getTime();
+		return date;
+	}

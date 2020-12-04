@@ -1,0 +1,7 @@
+1、webSerivice 接口
+
+2、restful 接口
+
+3、dobbo接口
+
+4、HTTP接口

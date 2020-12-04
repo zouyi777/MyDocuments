@@ -1,0 +1,8 @@
+Bitmap:   称作位图，一般位图的文件格式后缀为bmp，当然编码器也有很多如RGB565、RGB888。作为一种逐           像素的显示对象执行效率高，但是缺点也很明显存储效率低。我们理解为一种存储对象比较好。
+
+Drawable: 作为Android平下通用的图形对象，它可以装载常用格式的图像，比如GIF、PNG、JPG，当然	          也支持BMP，当然还提供一些高级的可视化对象，比如渐变、图形等。
+
+A bitmap is a Drawable. A Drawable is not necessarily a bitmap. Like all thumbs are fingers but not all fingers are thumbs.
+
+(1)、Bitmap一定是Drawable，但Drawable不一定是Bitmap，就像拇指是指头,但不是所有的指头都是拇指一样.
+(2)、 Drawable 是一个抽象的概念, 而 Bitmap 是其存在的实体之一

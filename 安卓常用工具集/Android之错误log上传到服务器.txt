@@ -1,0 +1,84 @@
+	在Android开发中在所难免的会出现程序crash，俗称崩溃。用户的随意性访问出现测试时未知的Bug导致我们的程序crash，此时我们是无法直接获取的错误log的，也就无法修复Bug。这就会极大的影响用户体验，此时我们需要注册一个功能来捕获全局的异常信息，当程序出现crash信息，我们把错误log记录下来，上传到服务器，以便于我们能及时修复bug。实现这个功能我们需要依赖于UncaughtExceptionHandler这个类，UncaughtExceptionHandler是一个接口，在Thread中。里面只有一个方法uncaughtException。当我们注册一个UncaughtExceptionHandler之后，当我们的程序crash时就会回调uncaughtException方法，而uncaughtException方法带有两个参数，参数中就存放这crash信息。接下来只看写代码
+
+	
+package hi.xiaoyu.crashhandler;
+ 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.Date;
+ 
+import android.content.Context;
+import android.os.Environment;
+import android.util.Log;
+ 
+public class CrashHandler implements UncaughtExceptionHandler {
+ 
+  private static CrashHandler instance;
+ 
+  public static CrashHandler getInstance() {
+    if (instance == null) {
+      instance = new CrashHandler();
+    }
+    return instance;
+  }
+ 
+  public void init(Context ctx) {
+    Thread.setDefaultUncaughtExceptionHandler(this);
+  }
+ 
+  /**
+   * 核心方法，当程序crash 会回调此方法， Throwable中存放这错误日志
+   */
+  @Override
+  public void uncaughtException(Thread arg0, Throwable arg1) {
+ 
+    String logPath;
+    if (Environment.getExternalStorageState().equals(
+        Environment.MEDIA_MOUNTED)) {
+      logPath = Environment.getExternalStorageDirectory()
+          .getAbsolutePath()
+          + File.separator
+          + File.separator
+          + "log";
+ 
+      File file = new File(logPath);
+      if (!file.exists()) {
+        file.mkdirs();
+      }
+      try {
+        FileWriter fw = new FileWriter(logPath + File.separator
+            + "errorlog.log", true);
+        fw.write(new Date() + "\n");
+        // 错误信息
+        // 这里还可以加上当前的系统版本，机型型号 等等信息
+        StackTraceElement[] stackTrace = arg1.getStackTrace();
+        fw.write(arg1.getMessage() + "\n");
+        for (int i = 0; i < stackTrace.length; i++) {
+          fw.write("file:" + stackTrace[i].getFileName() + " class:"
+              + stackTrace[i].getClassName() + " method:"
+              + stackTrace[i].getMethodName() + " line:"
+              + stackTrace[i].getLineNumber() + "\n");
+        }
+        fw.write("\n");
+        fw.close();
+        // 上传错误信息到服务器
+        // uploadToServer();
+      } catch (IOException e) {
+        Log.e("crash handler", "load file failed...", e.getCause());
+      }
+    }
+    arg1.printStackTrace();
+    android.os.Process.killProcess(android.os.Process.myPid());
+  }
+ 
+}
+
+在Activity或者Application中注册一下即可
+
+	
+CrashHandler crashHandler = CrashHandler.getInstance();
+crashHandler.init(getApplicationContext());
+
+这样就实现了Android全局异常的捕获处理，实现过程也比较简单，希望对大家学习Android软件编程有所帮助。

@@ -1,0 +1,3 @@
+android:scaleX="0.5"
+android:scaleY="0.5"
+这个大小是可以自己设定，一半设置在0.8比较合适

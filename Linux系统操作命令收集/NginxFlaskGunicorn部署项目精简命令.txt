@@ -1,0 +1,15 @@
+1、登录阿里云控制台——远程服务——Workbench：root zyyu18215626820.
+
+2、进入demo目录：root@localhost ~]# cd /demo
+
+3、激活虚拟环境：[root@localhost demo]# source venv/bin/activate
+
+4、进入HelloWorld目录: (venv)[root@localhost demo]# cd HelloWorld
+
+5、部署项目：(venv)[root@localhost HelloWorld]# gunicorn --workers=3 helloworld:app -b 127.0.0.1:8080
+
+6、启动Nginx(如果服务器重启过): venv)[root@localhost HelloWorld]# nginx
+
+另外：如果需要关闭Gunicorn进程
+1、显示正在运行的进程：pstree -ap|grep gunicorn
+2、关闭正在运行的进程：kill -9 进程id

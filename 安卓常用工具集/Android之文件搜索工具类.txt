@@ -1,0 +1,25 @@
+/**
+     * @detail 搜索sdcard文件
+     * @param 需要进行文件搜索的目录
+     * @param 过滤搜索文件类型
+     * */
+    private void search(File file, String[] ext) {
+        if (file != null) {
+            if (file.isDirectory()) {
+                File[] listFile = file.listFiles();
+                if (listFile != null) {
+                    for (int i = 0; i < listFile.length; i++) {
+                        search(listFile[i], ext);
+                    }
+                }
+            } else {
+                String filename = file.getAbsolutePath();
+                for (int i = 0; i < ext.length; i++) {
+                    if (filename.endsWith(ext[i])) {
+                        list.add(filename);
+                        break;
+                    }
+                }
+            }
+        }
+    }

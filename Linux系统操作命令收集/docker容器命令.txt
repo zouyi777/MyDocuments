@@ -1,0 +1,14 @@
+1、docker启动容器：使用docker images命令，列出镜像。docker run 
+
+2、docker停止容器：使用docker ps命令，查看容器列表。docker stop 容器名称或者容器id
+
+3、部署单模型：
+docker run -d -p 8501:8501 --mount type=bind,source=/tmp/models/linear_model,target=/models/linear -e MODEL_NAME=linear -t tensorflow/serving &
+
+4、部署多模型：
+docker run -p 8501:8501 \
+--mount type=bind,source=/tmp/models/linear_model,target=/models/linear_model \
+--mount type=bind,source=/tmp/models/cnn_catdog_model,target=/models/cnn_catdog_model \
+--mount type=bind,source=/tmp/models/model.config,target=/models/model.config \
+tensorflow/serving \
+--model_config_file=/models/model.config

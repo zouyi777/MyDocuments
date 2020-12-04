@@ -1,0 +1,10 @@
+
+1、BigDecimal
+   
+   BigDecimal bigDecimal=new BigDecimal(字符串、double、int等);
+
+   变量=bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP));
+
+2、DecimalFormat fd=new DecimalFormat("#0.00");
+
+   变量=df.format("字符串、double、int等");

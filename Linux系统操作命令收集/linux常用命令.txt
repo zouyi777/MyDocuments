@@ -1,0 +1,37 @@
+注意：root账户的密码在阿里云服务器控制台修改
+1、创建用户：
+   登录root用户，
+   新加用户名：useradd username
+         密码：passpwd username 然后会提示输入密码
+2、修改用户名密码：
+   登录root用户，
+   passpwd username 然后会提示输入密码
+3、vim编辑文本
+   vim 目录文件名（例如：vim /etc/sudoers） 打开文件
+   移动光标，到需要编辑的行，按a，进入append模式，然后输入
+4、vim退出：
+   首先按“Esc“键，退出”insert“模式
+  （1）不保存退出   :q!
+  （2）  保存退出   :wq!
+   
+5、“is not in the sudoers file”解决方法
+   当在终端执行sudo命令时，系统提示“xxx is not in the sudoers file”：
+   原因是：当前账户没有权限进行sudo，解决方法如下（这里假设用户名是cuser）：
+   切换到超级用户：$ su
+   打开/etc/sudoers文件：$vim /etc/sudoers
+   修改文件内容：
+   找到“root  ALL=(ALL)  ALL”一行，在下面插入新的一行，内容是“hadoop   ALL=(ALL)       ALL”，然后在vim键入命令“:wq!”保存并退出。
+   注：这个文件是只读的，不加“!”保存会失败。
+   退出超级用户：$ exit
+6、Linux如何关闭命令行正在执行的程序
+   Ctrl + C 终止
+   Ctrl + D 退出
+   Ctrl + S 挂起
+   Ctrl + Q 解挂
+   Ctrl + Z 好像是强制结束的意思
+7、查看文件安装路径：whereis xxx(xxx是你安装的软件名字)
+   查询运行文件所在路径：which xxx 
+8、进入文件：cd /文件夹名
+   返回上一级目录：cd(空格)..
+9、安装具体版本软件：pip3 install 软件名==版本号
+   卸载某软件：pip uninstall 软件名

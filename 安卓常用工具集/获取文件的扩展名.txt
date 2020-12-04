@@ -1,0 +1,4 @@
+      File f =new File("Test.txt");
+      String fileName=f.getName();
+      String prefix=fileName.substring(fileName.lastIndexOf("."));
+      System.out.println(prefix);

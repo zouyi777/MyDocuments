@@ -1,0 +1,5 @@
+1、在jQuery中，定义节点对象，前面有$符号，如 var $div=$("div");
+
+               定义非节点对象，前面就没有$符号，如 var obj={name:"zouyi",age:"25"}; var i=0; var str="hellow world !";
+
+2、选择器：基本选择器、层级选择器、筛选选择器

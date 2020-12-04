@@ -1,0 +1,104 @@
+	/*
+ 	*超时（网速慢）、资源不存在、服务器故障等
+ 	*
+ 	*/
+
+
+
+    private class XmlAsyncLoader extends XmlResourceRequest {  
+      
+            private boolean mIsCancle = false;  
+            private HttpGet mGet;  
+            private HttpClient mHttp;  
+      
+            public XmlAsyncLoader(MxActivity<?> activity, String url)  
+                    throws MalformedURLException {  
+                super(activity, url);  
+            }  
+      
+            @Override  
+            protected void doTaskInBackground() {  
+                // 请求数据  
+                if (mUrl.toLowerCase().startsWith("http://")) {  
+                    mGet  = initHttpGet(mUrl);  
+                    mHttp = initHttp();  
+                    try {  
+                        HttpResponse response = mHttp.execute(mGet);  
+                        if (mIsCancle) {  
+                            return;  
+                        }  
+                        if (response != null) {  
+                            if(response.getStatusLine().getStatusCode()!=HttpStatus.SC_OK){  
+                                onResponseError("network error");  
+                                Log.v(TAG, "the code is :"+response.getStatusLine().getStatusCode());  
+                                return;  
+                            }  
+                            notifyUpdateProgress(70);  
+                            Document doc = getDocumet(response);  
+                            Element root = doc.getDocumentElement();  
+                            NodeList appList = root  
+                                    .getElementsByTagName(Item_ELEMENT_NAME);  
+                            final int len = appList.getLength();  
+                            if (len <= 0) {// 没有items  
+                                onFoundNoItems();  
+                                return;  
+                            }  
+                            for (int i = 0; i < len; i++) {  
+                                Element item = (Element) appList.item(i);  
+                                if (item.getNodeType() == Node.ELEMENT_NODE) {  
+                                    HahaItemInfo info = createHahaItemIno(item);  
+                                    if (mIsCancle){  
+                                        return;  
+                                    }  
+                                    onFoundItem(info, 80 + 20 * (i + 1) / len);  
+                                    addUrlToQueue(info.userIconUrl);  
+                                }  
+                            };  
+      
+                        }  
+                    }catch(ConnectTimeoutException e){  
+                        onResponseError("time out");  
+                    } catch (ClientProtocolException e) {  
+                        --mCurrentPage;  
+                        e.printStackTrace();  
+                    } catch (IOException e) {  
+                        --mCurrentPage;  
+                        e.printStackTrace();  
+                    } catch (XmlPullParserException e) {  
+                        --mCurrentPage;  
+                        e.printStackTrace();  
+                    }finally{  
+                        notifyLoadFinish();  
+                        notifyLoadImages();  
+                        mHttp.getConnectionManager().shutdown();  
+                    }  
+      
+                }  
+            }  
+      
+            private HttpClient initHttp() {  
+                HttpClient client  = new DefaultHttpClient();  
+                client.getParams().setIntParameter(  
+                        HttpConnectionParams.SO_TIMEOUT, TIME_OUT_DELAY); // 超时设置  
+                client.getParams().setIntParameter(  
+                        HttpConnectionParams.CONNECTION_TIMEOUT, TIME_OUT_DELAY);// 连接超时  
+                return client;  
+            }  
+      
+            private HttpGet initHttpGet(String mUrl) {  
+                HttpGet get = new HttpGet(mUrl);  
+                initHeader(get);  
+                return get;  
+            }  
+      
+            @Override  
+            public boolean tryCancel() {  
+                Log.i(TAG, "tryCanle is working");  
+                mGet.abort();  
+                mIsCancle = true;  
+                mHttp.getConnectionManager().shutdown();  
+                notifyLoadFinish();  
+                return true;  
+            }  
+      
+        }  

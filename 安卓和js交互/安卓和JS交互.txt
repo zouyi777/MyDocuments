@@ -1,0 +1,27 @@
+
+    总结：无论是安卓调用js还是js调用安卓，都会先通过loadUrl（）方法载入js
+
+一、安卓调用js  (共2种方式)
+
+     1、方法一：通过loadUrl()方法
+
+       （1）、载入js;通过loadUrl("file:///android_asset/javascript.html")
+
+       （2）、调用js;通过loadUrl("javascript:callJS()");
+
+     2、方法二：evaluateJavascript（）方法
+
+
+     获取返回值：js脚本再调用webview（即是调用安卓）中的java函数把结果返回
+
+二、js调用安卓  （共3种方式）
+
+   
+     1、方法一：addJavascriptInterface（）进行对象映射
+
+
+     2、方法二：shouldOverrideUrlLoading ()方法回调拦截 url
+
+   
+     3、方法三：onJsAlert()、onJsConfirm()、onJsPrompt（）方法回调拦截JS对话框alert()、confirm()、prompt（） 
+        消息
