@@ -13,3 +13,23 @@
 另外：如果需要关闭Gunicorn进程
 1、显示正在运行的进程：pstree -ap|grep gunicorn
 2、关闭正在运行的进程：kill -9 进程id
+
+pip相关命令：
+1、使用pip安装python包
+	不同版本：前面加python版本号 -m 
+	如：python3 -m pip install Django==1.10.7
+	命令：
+	pip install SomePackage           # latest version
+	pip install SomePackage==1.0.4     # specificversion
+	pip install 'SomePackage>=1.0.4'     #minimum version
+2、pip查看已安装的包
+	命令：pip show packagename
+	功能：查看指定的安装包信息
+	命令：pip list
+	功能：列出所有的安装包
+3、pip检测更新
+	命令：pip list –outdated
+4、pip升级包
+	命令：pip install --upgrade packagename
+5、pip卸载包
+	命令：pip uninstall packagename
