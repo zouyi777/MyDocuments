@@ -1,35 +1,39 @@
-1¡¢µÇÂ¼°¢ÀïÔÆ¿ØÖÆÌ¨¡ª¡ªÔ¶³Ì·şÎñ¡ª¡ªWorkbench£ºroot zyyu18215626820.
+1ã€ç™»å½•é˜¿é‡Œäº‘æ§åˆ¶å°â€”â€”è¿œç¨‹æœåŠ¡â€”â€”Workbenchï¼šroot zyyu18215626820.
 
-2¡¢½øÈëdemoÄ¿Â¼£ºroot@localhost ~]# cd /demo
+2ã€è¿›å…¥demoç›®å½•ï¼šroot@localhost ~]# cd /demo
 
-3¡¢¼¤»îĞéÄâ»·¾³£º[root@localhost demo]# source venv/bin/activate
+3ã€æ¿€æ´»è™šæ‹Ÿç¯å¢ƒï¼š[root@localhost demo]# source venv/bin/activate
 
-4¡¢½øÈëHelloWorldÄ¿Â¼: (venv)[root@localhost demo]# cd HelloWorld
+4ã€è¿›å…¥HelloWorldç›®å½•: (venv)[root@localhost demo]# cd HelloWorld
 
-5¡¢²¿ÊğÏîÄ¿£º(venv)[root@localhost HelloWorld]# gunicorn --workers=3 helloworld:app -b 127.0.0.1:8080
+5ã€éƒ¨ç½²é¡¹ç›®ï¼š(venv)[root@localhost HelloWorld]# gunicorn --workers=3 helloworld:app -b 127.0.0.1:8080
 
-6¡¢Æô¶¯Nginx(Èç¹û·şÎñÆ÷ÖØÆô¹ı): venv)[root@localhost HelloWorld]# nginx
+   åå°è¿è¡ŒæœåŠ¡ï¼š(venv)[root@localhost HelloWorld]# gunicorn --workers=3 main:app -b 127.0.0.1:8080 --daemon
+   
+   ç”¨gunicorné…ç½®æ–‡ä»¶å¯åŠ¨ï¼šgunicorn -b 127.0.0.1:8080 main:app -c gunicorn_conf.py --limit-request-line 0
 
-ÁíÍâ£ºÈç¹ûĞèÒª¹Ø±ÕGunicorn½ø³Ì
-1¡¢ÏÔÊ¾ÕıÔÚÔËĞĞµÄ½ø³Ì£ºpstree -ap|grep gunicorn
-2¡¢¹Ø±ÕÕıÔÚÔËĞĞµÄ½ø³Ì£ºkill -9 ½ø³Ìid
+6ã€å¯åŠ¨Nginx(å¦‚æœæœåŠ¡å™¨é‡å¯è¿‡): (venv)[root@localhost HelloWorld]# nginx
 
-pipÏà¹ØÃüÁî£º
-1¡¢Ê¹ÓÃpip°²×°python°ü
-	²»Í¬°æ±¾£ºÇ°Ãæ¼Ópython°æ±¾ºÅ -m 
-	Èç£ºpython3 -m pip install Django==1.10.7
-	ÃüÁî£º
+å¦å¤–ï¼šå¦‚æœéœ€è¦å…³é—­Gunicornè¿›ç¨‹
+1ã€æ˜¾ç¤ºæ­£åœ¨è¿è¡Œçš„è¿›ç¨‹ï¼špstree -ap|grep gunicorn
+2ã€å…³é—­æ­£åœ¨è¿è¡Œçš„è¿›ç¨‹ï¼škill -9 è¿›ç¨‹id
+
+pipç›¸å…³å‘½ä»¤ï¼š
+1ã€ä½¿ç”¨pipå®‰è£…pythonåŒ…
+	ä¸åŒç‰ˆæœ¬ï¼šå‰é¢åŠ pythonç‰ˆæœ¬å· -m 
+	å¦‚ï¼špython3 -m pip install Django==1.10.7
+	å‘½ä»¤ï¼š
 	pip install SomePackage           # latest version
 	pip install SomePackage==1.0.4     # specificversion
 	pip install 'SomePackage>=1.0.4'     #minimum version
-2¡¢pip²é¿´ÒÑ°²×°µÄ°ü
-	ÃüÁî£ºpip show packagename
-	¹¦ÄÜ£º²é¿´Ö¸¶¨µÄ°²×°°üĞÅÏ¢
-	ÃüÁî£ºpip list
-	¹¦ÄÜ£ºÁĞ³öËùÓĞµÄ°²×°°ü
-3¡¢pip¼ì²â¸üĞÂ
-	ÃüÁî£ºpip list ¨Coutdated
-4¡¢pipÉı¼¶°ü
-	ÃüÁî£ºpip install --upgrade packagename
-5¡¢pipĞ¶ÔØ°ü
-	ÃüÁî£ºpip uninstall packagename
+2ã€pipæŸ¥çœ‹å·²å®‰è£…çš„åŒ…
+	å‘½ä»¤ï¼špip show packagename
+	åŠŸèƒ½ï¼šæŸ¥çœ‹æŒ‡å®šçš„å®‰è£…åŒ…ä¿¡æ¯
+	å‘½ä»¤ï¼špip list
+	åŠŸèƒ½ï¼šåˆ—å‡ºæ‰€æœ‰çš„å®‰è£…åŒ…
+3ã€pipæ£€æµ‹æ›´æ–°
+	å‘½ä»¤ï¼špip list â€“outdated
+4ã€pipå‡çº§åŒ…
+	å‘½ä»¤ï¼špip install --upgrade packagename
+5ã€pipå¸è½½åŒ…
+	å‘½ä»¤ï¼špip uninstall packagename
